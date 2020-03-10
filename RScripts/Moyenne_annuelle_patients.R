@@ -1,19 +1,7 @@
-
-
-library(RMySQL)
-library(DBI)
 library(data.table)
 library(tibble)
 library(ggplot2)
 
-
-conn <- dbConnect(MySQL(),
-                  user = 'rambam',
-                  password = 'rambam',
-                  dbname = 'rambam_hospital',
-                  port = 3308,
-                  host = 'localhost'
-)
 
 result <- dbGetQuery(conn, "SELECT department, FLOOR(avg(patients))  as moyenne FROM ( SELECT department, EXTRACT(YEAR FROM entry_date) as year , count(patient_id) as patients from visit_details group by department, year order by department, year ) as M GROUP BY department ORDER BY moyenne DESC
 ")

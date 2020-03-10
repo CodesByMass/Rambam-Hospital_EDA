@@ -1,20 +1,8 @@
-
-
-library(RMySQL)
-library(DBI)
 library(data.table)
 library(tibble)
 library(ggplot2)
 library(RColorBrewer)
 
-
-conn <- dbConnect(MySQL(),
-                  user = 'rambam',
-                  password = 'rambam',
-                  dbname = 'rambam_hospital',
-                  port = 3308,
-                  host = 'localhost'
-)
 
 old_par <- par(no.readonly = TRUE)
 result <- dbGetQuery(conn, "SELECT department, count(department) as iteration from visit_details group by department order by iteration desc limit 10")
